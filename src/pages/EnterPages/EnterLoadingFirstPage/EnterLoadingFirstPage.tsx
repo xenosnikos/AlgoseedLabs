@@ -1,7 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { Window, TitleBar, Text } from "react-desktop/macOs";
 
 const EnterLoadingFirstPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/enter/loading2");
+    }, 5000)
+  }, [])
+
   return (
     <Window
       chrome
@@ -11,7 +20,7 @@ const EnterLoadingFirstPage = () => {
         title="Command Terminal"
         controls
       />
-      <Text>
+      <Text size="20px">
         Last login: Thu Nov 17 16:38:46 on ttys000
         guestcomputer@Brand-New-Computer ~ %
         // Serial Port Initialization Device Driver
