@@ -12,13 +12,14 @@ const FullWindowContainer = () => {
     <Window
       chrome
       padding="0 0"
+      background="white"
     >
       <TitleBar
         title={pageName}
         controls
       />
-      <div className="w-full px-111-px py-11-px">
-        <div className="mb-7">
+      <div className="w-full py-11-px">
+        <div className="px-111-px mb-7">
           <img
             src={LogoImg}
             alt="logo img"
