@@ -11,6 +11,7 @@ import SupportIcon from "../../assets/icons/shortcuts/support-icon.svg";
 import PortfolioIcon from "../../assets/icons/shortcuts/portfolio-icon.svg";
 import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
+import ServicesIcon from "../../assets/icons/shortcuts/services-icon.svg";
 
 const shortcuts = [
   {title: "Home", icon: HomeIcon, link: "/full/home"},
@@ -18,7 +19,7 @@ const shortcuts = [
   {title: "About", icon: AboutIcon, link: "/full/about"},
   {title: "Contact Us", icon: ContactUsIcon, link: "/full/contact"},
   {title: "Support", icon: SupportIcon, link: "/full/support"},
-  {title: "Services", icon: SupportIcon, link: "/desktop/services"},
+  {title: "Services", icon: ServicesIcon, link: "/desktop/services"},
   {title: "Portfolio", icon: PortfolioIcon, link: "/full/portfolio"},
   {title: "Blog", icon: BlogIcon},
   {title: "Trash", icon: TrashIcon},
