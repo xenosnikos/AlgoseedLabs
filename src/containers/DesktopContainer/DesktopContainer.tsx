@@ -13,13 +13,13 @@ import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
 
 const shortcuts = [
-  {title: "Home", icon: HomeIcon},
-  {title: "Case Studies", icon: CaseStudiesIcon},
-  {title: "About", icon: AboutIcon},
-  {title: "Contact Us", icon: ContactUsIcon},
-  {title: "Support", icon: SupportIcon},
-  {title: "Services", icon: SupportIcon},
-  {title: "Portfolio", icon: PortfolioIcon},
+  {title: "Home", icon: HomeIcon, link: "/full/home"},
+  {title: "Case Studies", icon: CaseStudiesIcon, link: "/full/caseStudies"},
+  {title: "About", icon: AboutIcon, link: "/full/about"},
+  {title: "Contact Us", icon: ContactUsIcon, link: "/full/contact"},
+  {title: "Support", icon: SupportIcon, link: "/full/support"},
+  {title: "Services", icon: SupportIcon, link: "/desktop/services"},
+  {title: "Portfolio", icon: PortfolioIcon, link: "/full/portfolio"},
   {title: "Blog", icon: BlogIcon},
   {title: "Trash", icon: TrashIcon},
 ];
@@ -37,8 +37,8 @@ const DesktopContainer = () => {
       {shortcuts.map((shortcut, index) => {
         return (
           <div key={index} onClick={e => {
-            if (e.detail === 2) {
-              navigate("/desktop/services");
+            if (e.detail === 2 && shortcut.link) {
+              navigate(shortcut.link);
             }
           }}>
             <FolderShortcutComponent
