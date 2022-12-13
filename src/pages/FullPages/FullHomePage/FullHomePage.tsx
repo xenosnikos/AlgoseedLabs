@@ -1,8 +1,43 @@
 import React from "react";
 import cn from "classnames";
 import { Button } from 'react-desktop/macOs';
-import {services, languages, works} from "../../../helpers/data";
+import Slider from "react-slick";
+import {
+  services,
+  languages,
+  works,
+  recognitions,
+  accomplishments,
+  testimonials
+} from "../../../helpers/data";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ContactUsComponent from "../../../components/ContactUsComponent";
+import FooterComponent from "../../../components/FooterComponent";
+import FullFooterComponent from "../../../components/FullFooterComponent";
 import HomeLogoImg from "../../../assets/images/home/home-splash.svg";
+import ContactUsImg from "../../../assets/images/home/contact-logo.svg";
+
+const recognitionsSliderSetting = {
+  dots: false,
+  infinite: true,
+  autoplay: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1
+}
+
+const testimonialsSliderSetting = {
+  dots: true,
+  infinite: false,
+  autoplay: true,
+  speed: 500,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  centerMode: true,
+  arrows: false,
+  dotsClass: "testimonial-slider-dot"
+}
 
 const FullHomePage = () => {
   return (
@@ -110,7 +145,7 @@ const FullHomePage = () => {
           })}
         </div>
       </div>
-      <div className="px-111-px mt-241--px">
+      <div className="px-111-px mt-241--px mb-16">
         <div className="font-['Courier'] text-base text-center mb-2">
           // Our projects //
         </div>
@@ -121,6 +156,7 @@ const FullHomePage = () => {
           {works.map((work, index) => {
             return (
               <div
+                key={index}
                 className={cn("flex items-end justify-center bg-center bg-cover bg-no-repeat p-11", index === 0 ? "row-span-2" : "h-96")}
                 style={{backgroundImage: `url(${work.image})`}}
               >
@@ -136,6 +172,136 @@ const FullHomePage = () => {
           })}
         </div>
       </div>
+      <div className="px-111-px mb-28">
+        <div className="font-['Courier'] text-base mb-2">
+          // Awards & mentions //
+        </div>
+        <div className="font-['Open_Sans'] text-2xl font-bold mb-9">
+          Recognitions
+        </div>
+        <div className="border px-20 py-11 border-black">
+          <Slider {...recognitionsSliderSetting}>
+            {recognitions.map((recognition, index) => {
+              return (
+                <div
+                  key={index}
+                  className="p-2"
+                >
+                  <img
+                    src={recognition.image}
+                    alt={`${index} recognition img`}
+                  />
+                </div>
+              )
+            })}
+          </Slider>
+        </div>
+      </div>
+      <div className="bg-blue-2 px-111-px py-20">
+        <div className="flex flex-wrap justify-between mb-12">
+          <div>
+            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
+              <img
+                className="mb-6"
+                src={accomplishments[0].icon}
+                alt={`${accomplishments[0].title} icon`}
+              />
+              <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
+                {accomplishments[0].amount}
+              </div>
+              <div className="font-['Open_Sans'] text-xl">
+                {accomplishments[0].title}
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black mt-10">
+              <img
+                className="mb-6"
+                src={accomplishments[1].icon}
+                alt={`${accomplishments[1].title} icon`}
+              />
+              <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
+                {accomplishments[1].amount}
+              </div>
+              <div className="font-['Open_Sans'] text-xl">
+                {accomplishments[1].title}
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="font-['Courier'] text-base text-right mb-2">
+              // Performance counters //
+            </div>
+            <div className="font-['Open_Sans'] text-2xl font-bold text-right mb-9">
+              Accomplishments
+            </div>
+            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
+              <img
+                className="mb-6"
+                src={accomplishments[2].icon}
+                alt={`${accomplishments[2].title} icon`}
+              />
+              <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
+                {accomplishments[2].amount}
+              </div>
+              <div className="font-['Open_Sans'] text-xl">
+                {accomplishments[2].title}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="font-['Courier'] text-base text-center mb-2">
+            // What our clients have to say //
+          </div>
+          <div className="font-['Open_Sans'] text-2xl font-bold text-center mb-10">
+            Testimonials
+          </div>
+          <div>
+            <Slider {...testimonialsSliderSetting}>
+              {testimonials.map((testimonial, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="testimonial-width bg-white px-7 py-6	border border-black"
+                  >
+                    <div className="flex gap-x-7 mb-8">
+                      <img
+                        src={testimonial.avatar}
+                        alt={`${testimonial.name} avatar`}
+                        className="border border-black"
+                      />
+                      <div>
+                        <div className="font-['Open_Sans'] text-2xl font-bold mb-2">
+                          {testimonial.name}
+                        </div>
+                        <div className="font-['Open_Sans'] text-2xl mb-0.5">
+                          {testimonial.title}
+                        </div>
+                        <div className="font-['Open_Sans'] text-xl font-light italic mb-1">
+                          {testimonial.address1}
+                        </div>
+                        <div className="font-['Open_Sans'] text-xl font-light italic">
+                          {testimonial.address2}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="font-['Open_Sans'] text-sm">
+                      {testimonial.description}
+                    </div>
+                  </div>
+                )
+              })}
+            </Slider>
+          </div>
+        </div>
+      </div>
+      <ContactUsComponent
+        image={ContactUsImg}
+      />
+      <FullFooterComponent />
+      <FooterComponent />
     </div>
   )
 }

@@ -22,6 +22,19 @@ import HomeWork2Img from "../assets/images/home/work-2.svg";
 import HomeWork3Img from "../assets/images/home/work-3.svg";
 import HomeWork4Img from "../assets/images/home/work-4.svg";
 import HomeWork5Img from "../assets/images/home/work-5.svg";
+import Recognition1Img from "../assets/images/home/recognitions-1.svg";
+import Recognition2Img from "../assets/images/home/recognitions-2.svg";
+import Recognition3Img from "../assets/images/home/recognitions-3.svg";
+import Recognition4Img from "../assets/images/home/recognitions-4.svg";
+import Accomplishment1Img from "../assets/icons/accomplishments/happy-clients.svg";
+import Accomplishment2Img from "../assets/icons/accomplishments/successful-projects.svg";
+import Accomplishment3Img from "../assets/icons/accomplishments/service-countries.svg";
+import TestimonialClient1Img from "../assets/images/home/testimonial-client-1.svg";
+import TestimonialClient2Img from "../assets/images/home/testimonial-client-2.svg";
+import SocialInstagramIcon from "../assets/icons/socials/instagram.svg";
+import SocialLinkedInIcon from "../assets/icons/socials/linkedIn.svg";
+import SocialTwitterIcon from "../assets/icons/socials/twitter.svg";
+import SocialFacebookIcon from "../assets/icons/socials/facebook.svg";
 
 const services = [
   {
@@ -125,8 +138,91 @@ const works = [
   {image: HomeWork5Img}
 ];
 
+const recognitions = [
+  {image: Recognition1Img},
+  {image: Recognition2Img},
+  {image: Recognition3Img},
+  {image: Recognition4Img},
+];
+
+const accomplishments = [
+  {
+    title: "Happy Clients",
+    amount: "72+",
+    icon: Accomplishment1Img
+  },
+  {
+    title: "Successful Projects",
+    amount: "104+",
+    icon: Accomplishment2Img
+  },
+  {
+    title: "Countries we service",
+    amount: "15+",
+    icon: Accomplishment3Img
+  }
+];
+
+const testimonials = [
+  {
+    name: "Vincent Koo",
+    title: "Senior Executive",
+    address1: "Elmwood Interiors",
+    address2: "Seattle, Washington",
+    description: "Nick and his team completed our project quickly and without any issues. We discussed the project and planned in depth before he started working and finished within our agreed time. He was also prompt with communication whenever I needed to ask him for something or give him an update.",
+    avatar: TestimonialClient1Img
+  },
+  {
+    name: "Aime McGroot",
+    title: "CEO",
+    address1: "Appleton Mobile",
+    address2: "Toronto, Ontario",
+    description: "Nick and his team completed our project quickly and without any issues. We discussed the project and planned in depth before he started working and finished within our agreed time. He was also prompt with communication whenever I needed to ask him for something or give him an update.",
+    avatar: TestimonialClient2Img
+  },
+  {
+    name: "Vincent Koo",
+    title: "Senior Executive",
+    address1: "Elmwood Interiors",
+    address2: "Seattle, Washington",
+    description: "Nick and his team completed our project quickly and without any issues. We discussed the project and planned in depth before he started working and finished within our agreed time. He was also prompt with communication whenever I needed to ask him for something or give him an update.",
+    avatar: TestimonialClient1Img
+  },
+  {
+    name: "Aime McGroot",
+    title: "CEO",
+    address1: "Appleton Mobile",
+    address2: "Toronto, Ontario",
+    description: "Nick and his team completed our project quickly and without any issues. We discussed the project and planned in depth before he started working and finished within our agreed time. He was also prompt with communication whenever I needed to ask him for something or give him an update.",
+    avatar: TestimonialClient2Img
+  }
+];
+
+const socials = [
+  {
+    title: "Instagram",
+    icon: SocialInstagramIcon
+  },
+  {
+    title: "Linked In",
+    icon: SocialLinkedInIcon
+  },
+  {
+    title: "Twitter",
+    icon: SocialTwitterIcon
+  },
+  {
+    title: "Facebook",
+    icon: SocialFacebookIcon
+  },
+];
+
 export {
   services,
   languages,
-  works
+  works,
+  recognitions,
+  accomplishments,
+  testimonials,
+  socials
 }

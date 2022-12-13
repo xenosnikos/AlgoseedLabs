@@ -32,7 +32,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         'home-languages': 'repeat(auto-fill, minmax(230px, 1fr))',
-        'home-works': 'repeat(auto-fill, minmax(390px, 1fr))'
+        'home-works': 'repeat(auto-fill, minmax(390px, 1fr))',
+        'home-accomplishments': 'repeat(auto-fill, minmax(347px, 1fr))'
       }
     },
   },
@@ -66,6 +67,47 @@ module.exports = {
         {
           '.home-languages-bg': {
             'background': 'linear-gradient(180deg, #00A3FF 0%, rgba(0, 163, 255, 0.53125) 46.88%, rgba(0, 163, 255, 0) 100%)'
+          }
+        },
+        {
+          '.testimonial-width': {
+            'width': '566.67px!important'
+          }
+        },
+        {
+          '.testimonial-slider-dot': {
+            'display': 'flex!important',
+            'justify-content': 'center',
+            'gap': '17px',
+            'margin-top': '47px'
+          }
+        },
+        {
+          '.testimonial-slider-dot li': {
+            'display': 'flex',
+            'justify-content': 'center',
+            'align-items': 'center',
+            'width': '32px',
+            'height': '32px',
+            'background': '#FFF',
+            'font-size': '16px',
+            'border': '1px solid #000'
+          }
+        },
+        {
+          '.testimonial-slider-dot li.slick-active': {
+            'background': '#00A3FF',
+            'color': '#FFF'
+          }
+        },
+        {
+          '.footer-email-input': {
+            'padding': '13px 19px!important'
+          }
+        },
+        {
+          '.footer-email-input::placeholder': {
+            'color': '#000!important'
           }
         },
       ])
