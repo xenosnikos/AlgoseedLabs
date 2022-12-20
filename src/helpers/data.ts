@@ -35,6 +35,12 @@ import SocialInstagramIcon from "../assets/icons/socials/instagram.svg";
 import SocialLinkedInIcon from "../assets/icons/socials/linkedIn.svg";
 import SocialTwitterIcon from "../assets/icons/socials/twitter.svg";
 import SocialFacebookIcon from "../assets/icons/socials/facebook.svg";
+import Values1Icon from "../assets/icons/values/values-1.svg";
+import Values2Icon from "../assets/icons/values/values-2.svg";
+import Values3Icon from "../assets/icons/values/values-3.svg";
+import Values4Icon from "../assets/icons/values/values-4.svg";
+import Values5Icon from "../assets/icons/values/values-5.svg";
+import Values6Icon from "../assets/icons/values/values-6.svg";
 
 const services = [
   {
@@ -217,6 +223,33 @@ const socials = [
   },
 ];
 
+const values = [
+  {
+    content: "We <b>always exceed</b> our clients expectations to build a <b>sustainable relationship</b>",
+    icon: Values1Icon
+  },
+  {
+    content: "Our team uses the <b>latest tools & technologies</b> for all our clients projects",
+    icon: Values2Icon
+  },
+  {
+    content: "We <b>think outside the box & question the status quo</b> in a constructive manner",
+    icon: Values3Icon
+  },
+  {
+    content: "We <b>push the limit</b> of what is possible and <b>learn</b> from all of our successes and failures",
+    icon: Values4Icon
+  },
+  {
+    content: "Our team acts professionally and we are <b>always proud</b> to be part of the Algoseed crew",
+    icon: Values5Icon
+  },
+  {
+    content: "We build an <b>inclusive, transparent</b> and <b>socially responsible culture</b>",
+    icon: Values5Icon
+  }
+];
+
 export {
   services,
   languages,
@@ -224,5 +257,6 @@ export {
   recognitions,
   accomplishments,
   testimonials,
-  socials
+  socials,
+  values
 }

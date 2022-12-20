@@ -17,6 +17,7 @@ module.exports = {
         '33-px': '33px',
         '39-px': '39px',
         '52-px': '52px',
+        '60-px': '60px',
         '70-px': '70px',
         '74-px': '74px',
         '91-px': '91px',
@@ -33,7 +34,8 @@ module.exports = {
       gridTemplateColumns: {
         'home-languages': 'repeat(auto-fill, minmax(230px, 1fr))',
         'home-works': 'repeat(auto-fill, minmax(390px, 1fr))',
-        'home-accomplishments': 'repeat(auto-fill, minmax(347px, 1fr))'
+        'home-accomplishments': 'repeat(auto-fill, minmax(347px, 1fr))',
+        'team-profiles': 'repeat(auto-fill, minmax(150px, 1fr))'
       }
     },
   },
@@ -110,6 +112,29 @@ module.exports = {
             'color': '#000!important'
           }
         },
+        {
+          '.values-bg': {
+            'background': `linear-gradient(180deg, #00a3ff66 0%, #00a3ff66 100%),
+                            url(./assets/images/about/values-bg.svg)`,
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat'
+          }
+        },
+        {
+          '.max-w-347-px': {
+            'max-width': "347px"
+          }
+        },
+        {
+          '.min-w-347-px': {
+            'min-width': "347px"
+          }
+        },
+        {
+          '.process-bg': {
+            'background': 'linear-gradient(180deg, #00A3FF 0%, rgba(0, 163, 255, 0.53125) 46.88%, rgba(0, 163, 255, 0) 100%)'
+          }
+        }
       ])
     })
   ],
