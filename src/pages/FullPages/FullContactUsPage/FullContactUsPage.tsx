@@ -28,7 +28,7 @@ const contactMethods = [
 const FullContactUsPage = () => {
   return (
     <div>
-      <div className="flex gap-x-40 px-111-px mb-40">
+      <div className="flex flex-col lg:flex-row gap-x-40 gap-y-10 px-3 md:px-111-px mb-16 lg:mb-40">
         <div className="w-full">
           <div className="page-header mb-12">
             <span className="text-blue-200">Contact</span> Us
@@ -76,7 +76,7 @@ const FullContactUsPage = () => {
           })}
         </div>
       </div>
-      <div className="px-111-px">
+      <div className="px-3 md:px-111-px">
         <div className="font-['Courier'] text-base text-center mb-2">
           // Algoseed HQ //
         </div>
