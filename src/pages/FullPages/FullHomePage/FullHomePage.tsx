@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import cn from "classnames";
 import { Button } from 'react-desktop/macOs';
 import Slider from "react-slick";
@@ -17,8 +17,9 @@ import FooterComponent from "../../../components/FooterComponent";
 import FullFooterComponent from "../../../components/FullFooterComponent";
 import HomeLogoImg from "../../../assets/images/home/home-splash.svg";
 import ContactUsImg from "../../../assets/images/home/contact-logo.svg";
+import useWindowSize from "../../../hooks/windowSize";
 
-const recognitionsSliderSetting = {
+const initRecognitionsSliderSetting = {
   dots: false,
   infinite: true,
   autoplay: true,
@@ -27,22 +28,41 @@ const recognitionsSliderSetting = {
   slidesToScroll: 1
 }
 
-const testimonialsSliderSetting = {
+const initTestimonialsSliderSetting = {
   dots: true,
   infinite: false,
   autoplay: true,
   speed: 500,
   slidesToShow: 2,
   slidesToScroll: 1,
-  centerMode: true,
+  centerMode: false,
   arrows: false,
   dotsClass: "testimonial-slider-dot"
 }
 
 const FullHomePage = () => {
+  const [recognitionsSliderSetting, setRecognitionsSliderSetting] = useState(initRecognitionsSliderSetting);
+  const [testimonialsSliderSetting, setTestimonialsSliderSetting] = useState(initTestimonialsSliderSetting);
+  const [width, height] = useWindowSize();
+
+  useEffect(() => {
+    if (width < 800) {
+      setTestimonialsSliderSetting({...testimonialsSliderSetting, slidesToShow: 1});
+    } else {
+      setTestimonialsSliderSetting({...testimonialsSliderSetting, slidesToShow: 2});
+    }
+    if (width < 500) {
+      setRecognitionsSliderSetting({...recognitionsSliderSetting, slidesToShow: 2});
+    } else if (width < 360) {
+      setRecognitionsSliderSetting({...recognitionsSliderSetting, slidesToShow: 1});
+    } else {
+      setRecognitionsSliderSetting({...recognitionsSliderSetting, slidesToShow: 4});
+    }
+  }, [width, height])
+
   return (
     <div className="w-full">
-      <div className="flex gap-x-24 items-start px-111-px mb-16">
+      <div className="flex flex-col lg:flex-row gap-x-24 items-start px-3 md:px-111-px mb-16">
         <img
           src={HomeLogoImg}
           alt="home logo"
@@ -57,7 +77,7 @@ const FullHomePage = () => {
           <p className="text-xl mb-9">
             We <b>dream, design, code & develop.</b> We are a team of professionals who are committed to provide end to end innovative solutions and deliver unparalleled results.
           </p>
-          <div className="flex gap-x-6">
+          <div className="flex flex-col sm:flex-row gap-x-6 gap-y-2">
             <Button
               color="blue"
               padding="14px 36px"
@@ -75,19 +95,19 @@ const FullHomePage = () => {
           </div>
         </div>
       </div>
-      <div className="px-111-px mb-16">
+      <div className="px-3 md:px-111-px mb-16">
         <p className="text-center text-base mb-2">
           // What we can do for you //
         </p>
         <h5 className="text-2xl	font-bold text-center mb-10">
           Services we can help you with
         </h5>
-        <div className="grid grid-cols-3 gap-14 justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-14 justify-center md:justify-between">
           {services.map((service, index) => {
             return (
               <div
                 key={index}
-                className={cn("w-347-px h-349-px flex flex-col justify-between bg-white p-8 border border-black", index % 3 === 0 ? "mr-auto" : index % 3 === 1 ? "m-auto" : "ml-auto")}
+                className={cn("max-w-347-px h-349-px flex flex-col justify-between bg-white p-8 border border-black m-auto", index % 3 === 0 ? "xl:mr-auto" : index % 3 === 1 ? "m-auto" : "xl:ml-auto")}
               >
                 <div className="flex flex-col items-center">
                   <img
@@ -116,12 +136,12 @@ const FullHomePage = () => {
           })}
         </div>
       </div>
-      <div className="home-languages-bg px-111-px pt-20 pb-353-px">
+      <div className="home-languages-bg px-3 md:px-111-px pt-20 pb-353-px">
         <div className="font-['Courier'] text-base text-white mb-2.5">
           // Tech stacks we deliver //
         </div>
         <div className="grid grid-cols-home-languages gap-x-16 gap-y-12">
-          <div className="col-span-2">
+          <div className="sm:col-span-2">
             <div className="font-['Open_Sans'] text-2xl font-bold text-white mb-4">
               Technology languages we’re skilled at
             </div>
@@ -145,14 +165,14 @@ const FullHomePage = () => {
           })}
         </div>
       </div>
-      <div className="px-111-px mt-241--px mb-16">
+      <div className="px-3 md:px-111-px mt-241--px mb-16">
         <div className="font-['Courier'] text-base text-center mb-2">
           // Our projects //
         </div>
         <div className="font-['Open_Sans'] text-2xl font-bold text-center mb-10">
           Some of our most finest work
         </div>
-        <div className="grid grid-cols-home-works gap-32">
+        <div className="grid grid-cols-home-works md:grid-cols-md-home-works gap-32">
           {works.map((work, index) => {
             return (
               <div
@@ -172,14 +192,14 @@ const FullHomePage = () => {
           })}
         </div>
       </div>
-      <div className="px-111-px mb-28">
+      <div className="px-3 md:px-111-px mb-28">
         <div className="font-['Courier'] text-base mb-2">
           // Awards & mentions //
         </div>
         <div className="font-['Open_Sans'] text-2xl font-bold mb-9">
           Recognitions
         </div>
-        <div className="border px-20 py-11 border-black">
+        <div className="border px-3 md:px-20 py-11 border-black">
           <Slider {...recognitionsSliderSetting}>
             {recognitions.map((recognition, index) => {
               return (
@@ -197,46 +217,42 @@ const FullHomePage = () => {
           </Slider>
         </div>
       </div>
-      <div className="bg-blue-2 px-111-px py-20">
-        <div className="flex flex-wrap justify-between mb-12">
-          <div>
-            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
-              <img
-                className="mb-6"
-                src={accomplishments[0].icon}
-                alt={`${accomplishments[0].title} icon`}
-              />
-              <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
-                {accomplishments[0].amount}
-              </div>
-              <div className="font-['Open_Sans'] text-xl">
-                {accomplishments[0].title}
-              </div>
+      <div className="bg-blue-2 px-3 md:px-111-px py-20">
+        <div className="flex flex-wrap justify-center md:justify-between gap-x-2 mb-12">
+          <div className="w-full max-w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
+            <img
+              className="mb-6"
+              src={accomplishments[0].icon}
+              alt={`${accomplishments[0].title} icon`}
+            />
+            <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
+              {accomplishments[0].amount}
+            </div>
+            <div className="font-['Open_Sans'] text-xl">
+              {accomplishments[0].title}
             </div>
           </div>
-          <div>
-            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black mt-10">
-              <img
-                className="mb-6"
-                src={accomplishments[1].icon}
-                alt={`${accomplishments[1].title} icon`}
-              />
-              <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
-                {accomplishments[1].amount}
-              </div>
-              <div className="font-['Open_Sans'] text-xl">
-                {accomplishments[1].title}
-              </div>
+          <div className="w-full max-w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black mt-10">
+            <img
+              className="mb-6"
+              src={accomplishments[1].icon}
+              alt={`${accomplishments[1].title} icon`}
+            />
+            <div className="font-['Open_Sans'] text-2xl font-bold mb-3.5">
+              {accomplishments[1].amount}
+            </div>
+            <div className="font-['Open_Sans'] text-xl">
+              {accomplishments[1].title}
             </div>
           </div>
-          <div>
+          <div className="w-full max-w-347-px">
             <div className="font-['Courier'] text-base text-right mb-2">
               // Performance counters //
             </div>
             <div className="font-['Open_Sans'] text-2xl font-bold text-right mb-9">
               Accomplishments
             </div>
-            <div className="w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
+            <div className="h-349-px flex flex-col justify-center items-center bg-white border border-black">
               <img
                 className="mb-6"
                 src={accomplishments[2].icon}
@@ -264,31 +280,35 @@ const FullHomePage = () => {
                 return (
                   <div
                     key={index}
-                    className="testimonial-width bg-white px-7 py-6	border border-black"
+                    className="px-2"
                   >
-                    <div className="flex gap-x-7 mb-8">
-                      <img
-                        src={testimonial.avatar}
-                        alt={`${testimonial.name} avatar`}
-                        className="border border-black"
-                      />
-                      <div>
-                        <div className="font-['Open_Sans'] text-2xl font-bold mb-2">
-                          {testimonial.name}
-                        </div>
-                        <div className="font-['Open_Sans'] text-2xl mb-0.5">
-                          {testimonial.title}
-                        </div>
-                        <div className="font-['Open_Sans'] text-xl font-light italic mb-1">
-                          {testimonial.address1}
-                        </div>
-                        <div className="font-['Open_Sans'] text-xl font-light italic">
-                          {testimonial.address2}
+                    <div
+                      className="testimonial-width bg-white px-7 py-6	border border-black"
+                    >
+                      <div className="flex flex-col md:flex-row gap-x-7 mb-8">
+                        <img
+                          src={testimonial.avatar}
+                          alt={`${testimonial.name} avatar`}
+                          className="border border-black"
+                        />
+                        <div>
+                          <div className="font-['Open_Sans'] text-2xl font-bold mb-2">
+                            {testimonial.name}
+                          </div>
+                          <div className="font-['Open_Sans'] text-2xl mb-0.5">
+                            {testimonial.title}
+                          </div>
+                          <div className="font-['Open_Sans'] text-xl font-light italic mb-1">
+                            {testimonial.address1}
+                          </div>
+                          <div className="font-['Open_Sans'] text-xl font-light italic">
+                            {testimonial.address2}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="font-['Open_Sans'] text-sm">
-                      {testimonial.description}
+                      <div className="font-['Open_Sans'] text-sm">
+                        {testimonial.description}
+                      </div>
                     </div>
                   </div>
                 )

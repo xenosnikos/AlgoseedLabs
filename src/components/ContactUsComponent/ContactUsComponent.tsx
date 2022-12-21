@@ -9,8 +9,8 @@ type props = {
 
 const ContactUsComponent: React.FC<props> = ({ image }) => {
   return (
-    <div className="flex gap-x-40 px-111-px py-24">
-      <div className="w-1/2 flex flex-col items-start">
+    <div className="flex flex-col lg:flex-row gap-x-40 gap-y-10 px-3 md:px-111-px py-24">
+      <div className="w-full lg:w-1/2 flex flex-col items-start">
         <div className="font-['Courier'] text-base text-center mb-2">
           // Get in touch //
         </div>
@@ -49,7 +49,7 @@ const ContactUsComponent: React.FC<props> = ({ image }) => {
           </Button>
         </div>
       </div>
-      <div className="w-1/2">
+      <div className="w-full lg:w-1/2">
         <img
           src={image}
           alt="contact us"

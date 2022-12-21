@@ -2,6 +2,8 @@ import React from "react";
 import cn from "classnames";
 import { Button } from "react-desktop/macOs";
 import ContactUsComponent from "../../../components/ContactUsComponent";
+import FullFooterComponent from "../../../components/FullFooterComponent";
+import FooterComponent from "../../../components/FooterComponent";
 import {values} from "../../../helpers/data";
 import AboutIImg from "../../../assets/images/about/about-1.svg";
 import MissionImg from "../../../assets/images/about/mission.svg";
@@ -11,8 +13,6 @@ import ClutchImg from "../../../assets/images/about/clutch.svg";
 import ProcessImg from "../../../assets/images/about/process.svg";
 import AvatarImg from "../../../assets/images/about/avatar.svg";
 import ContactImg from "../../../assets/images/about/contact.jpg";
-import FullFooterComponent from "../../../components/FullFooterComponent";
-import FooterComponent from "../../../components/FooterComponent";
 
 const data = [
   {

@@ -33,7 +33,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         'home-languages': 'repeat(auto-fill, minmax(230px, 1fr))',
-        'home-works': 'repeat(auto-fill, minmax(390px, 1fr))',
+        'md-home-works': 'repeat(auto-fill, minmax(390px, 1fr))',
+        'home-works': 'repeat(auto-fill, minmax(300px, 1fr))',
         'home-accomplishments': 'repeat(auto-fill, minmax(347px, 1fr))',
         'team-profiles': 'repeat(auto-fill, minmax(150px, 1fr))'
       }
@@ -73,7 +74,7 @@ module.exports = {
         },
         {
           '.testimonial-width': {
-            'width': '566.67px!important'
+            'max-width': '566.67px!important'
           }
         },
         {

@@ -19,7 +19,7 @@ const FullWindowContainer = () => {
         controls
       />
       <div className="w-full py-11-px">
-        <div className="px-111-px mb-7">
+        <div className="px-3 md:px-111-px mb-7">
           <img
             src={LogoImg}
             alt="logo img"

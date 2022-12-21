@@ -18,7 +18,7 @@ const FullFooterComponent = () => {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between bg-blue-2 px-111-px py-14 mb-7">
+    <div className="flex flex-col lg:flex-row justify-between gap-y-5 bg-blue-2 px-3 md:px-111-px py-14 mb-7">
       <div className="flex flex-col">
         <img
           className="mb-7	"
@@ -43,15 +43,15 @@ const FullFooterComponent = () => {
             placeholder="Email"
           />
           <Button
-            className="absolute right-1 top-3 z-30"
+            className="absolute left-40 top-3 z-30"
             color="blue"
           >
             Subscribe
           </Button>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-end h-auto">
-        <div className="flex gap-x-12">
+      <div className="flex flex-col gap-y-4 justify-between items-start lg:items-end h-auto">
+        <div className="flex flex-wrap gap-y-3 gap-x-12">
           {menus.map((menu, index) => {
             return (
               <Link
