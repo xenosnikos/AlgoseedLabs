@@ -14,7 +14,7 @@ const EnterLoadingFirstPage = () => {
   return (
     <Window
       chrome
-      className="fixed left-12 top-20 terminal-size"
+      className="fixed left-2 lg:left-12 top-14 lg:top-20 terminal-size lg:lg-terminal-size"
     >
       <TitleBar
         title="Command Terminal"

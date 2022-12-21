@@ -49,9 +49,15 @@ module.exports = {
           }
         },
         {
-          '.terminal-size': {
+          '.lg-terminal-size': {
             'width': 'calc(100% - 6rem)!important',
             'height': 'calc(100% - 10rem)!important'
+          }
+        },
+        {
+          '.terminal-size': {
+            'width': 'calc(100% - 1rem)!important',
+            'height': 'calc(100% - 7rem)!important'
           }
         },
         {

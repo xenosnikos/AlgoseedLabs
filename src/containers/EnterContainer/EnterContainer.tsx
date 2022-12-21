@@ -8,8 +8,8 @@ const EnterContainer = () => {
       <div className="w-screen h-52-px absolute top-0 left-0 bg-black-1 z-10">
 
       </div>
-      <div className="flex w-full h-full">
-        <div className="w-2/5 h-full flex items-center relative desktop-left-bg px-12 py-20">
+      <div className="flex flex-col lg:flex-row w-full h-full">
+        <div className="w-full lg:w-2/5 h-full flex items-center relative desktop-left-bg px-12 py-20">
           <img
             src={LogoImg}
             alt="logo"
@@ -23,7 +23,7 @@ const EnterContainer = () => {
             </div>
           </div>
         </div>
-        <div className="w-3/5 h-full flex justify-center items-center">
+        <div className="w-full lg:w-3/5 h-full flex justify-center items-center">
           <Outlet />
         </div>
       </div>
