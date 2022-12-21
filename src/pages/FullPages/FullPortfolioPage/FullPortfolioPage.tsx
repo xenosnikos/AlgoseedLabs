@@ -21,7 +21,7 @@ const works = [
 const FullPortfolioPage = () => {
   return (
     <div>
-      <div className="px-111-px">
+      <div className="px-3 md:px-111-px">
         <div className="page-header text-blue-200 text-center mb-12">
           Portfolio
         </div>
@@ -31,7 +31,7 @@ const FullPortfolioPage = () => {
         <div className="font-['Open_Sans'] text-2xl font-bold text-center mb-11">
           Some of our finest works
         </div>
-        <div className="grid grid-cols-3 gap-20 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 mb-16">
           {works.map((work, index) => {
             return (
               <img
