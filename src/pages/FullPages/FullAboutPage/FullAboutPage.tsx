@@ -116,8 +116,8 @@ const profiles = [
 const FullAboutPage = () => {
   return (
     <div>
-      <div className="flex gap-x-9 px-111-px">
-        <div className="w-1/2">
+      <div className="flex flex-col lg:flex-row gap-x-9 px-3 md:px-111-px">
+        <div className="w-full lg:w-1/2">
           <div className="page-header mb-6">
             About <span className="text-blue-200">Algoseed Labs</span>
           </div>
@@ -135,24 +135,24 @@ const FullAboutPage = () => {
           </div>
         </div>
         <img
-          className="w-1/2"
+          className="w-full lg:w-1/2"
           src={AboutIImg}
           alt="about 1 img"
         />
       </div>
-      <div className="flex flex-col gap-y-16 px-111-px mt-14">
+      <div className="flex flex-col gap-y-16 px-3 md:px-111-px mt-14">
         {data.map((item, index) => {
           return (
             <div
               key={index}
-              className={cn("flex gap-x-20", index === 1 && "flex-row-reverse")}
+              className={cn("flex flex-col lg:flex-row gap-x-20 gap-y-4", index === 1 && "lg:flex-row-reverse")}
             >
               <img
-                className="w-1/2"
+                className="w-full lg:w-1/2"
                 src={item.image}
                 alt={`${item.title} image`}
               />
-              <div className="w-1/2">
+              <div className="w-full lg:w-1/2">
                 <div className="font-['Courier'] text-base mb-2.5">
                   {item.title}
                 </div>
@@ -167,14 +167,14 @@ const FullAboutPage = () => {
           )
         })}
       </div>
-      <div className="values-bg px-111-px py-60-px mt-28">
+      <div className="values-bg px-3 md:px-111-px py-60-px mt-28">
         <div className="font-['Courier'] text-base text-center text-white mb-2.5">
           // Why should you work with us //
         </div>
         <div className="font-['Open_Sans'] text-2xl text-center font-bold text-white mb-24">
           Our values
         </div>
-        <div className="grid grid-cols-3 gap-x-24	gap-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-24	gap-y-16">
           {values.map((value, index) => {
             return (
               <div
@@ -193,7 +193,7 @@ const FullAboutPage = () => {
           })}
         </div>
       </div>
-      <div className="flex justify-between items-center pl-111-px py-20">
+      <div className="flex flex-col lg:flex-row justify-between lg:items-center pl-3 md:pl-111-px py-20">
         <div>
           <div className="font-['Courier'] text-base mb-2.5">
             // Clutch reviews //
@@ -214,7 +214,7 @@ const FullAboutPage = () => {
           alt="clutch"
         />
       </div>
-      <div className="process-bg px-111-px py-16">
+      <div className="process-bg px-3 md:px-111-px py-16">
         <div className="font-['Courier'] text-base text-center text-white mb-2.5">
           // How our system operates //
         </div>
