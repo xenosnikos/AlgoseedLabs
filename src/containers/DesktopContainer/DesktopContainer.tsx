@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
 import FolderShortcutComponent from "../../components/FolderShortcutComponent";
 import FooterComponent from "../../components/FooterComponent";
-import LogoImg from "../../assets/images/logo-1.svg";
 import HomeIcon from "../../assets/icons/shortcuts/home-icon.svg";
 import CaseStudiesIcon from "../../assets/icons/shortcuts/case-studies-icon.svg";
 import AboutIcon from "../../assets/icons/shortcuts/about-icon.svg";
@@ -48,11 +47,14 @@ const DesktopContainer = () => {
 
   return (
     <div className="min-h-screen bg-blue-1 relative flex justify-center items-center">
-      <img
-        className="absolute m-0 z-0"
-        src={LogoImg}
-        alt="logo"
-      />
+      {/*<img*/}
+      {/*  className="absolute m-0 z-0"*/}
+      {/*  src={LogoImg}*/}
+      {/*  alt="logo"*/}
+      {/*/>*/}
+      <video className="fixed left-0 top-0 min-w-full min-h-full max-w-none" autoPlay muted loop id="myVideo">
+        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4" />
+      </video>
       {shortcuts.map((shortcut, index) => {
         return (
           <div
