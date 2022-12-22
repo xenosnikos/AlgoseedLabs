@@ -4,17 +4,32 @@ import Draggable from "react-draggable";
 type props = {
   title: string
   icon: string,
+  x: number,
+  y: number,
+  onStop: Function
 }
 
 const FolderShortcutComponent: React.FC<props> = ({
   title,
-  icon
+  icon,
+  x,
+  y,
+  onStop
 }) => {
+
+  const handleDrag = (e:any, ui:any) => {
+    e.preventDefault();
+  }
+
   return (
     <Draggable
-      defaultPosition={{x: 0, y: 0}}
+      defaultPosition={{x, y}}
+      position={{x, y}}
       bounds="body"
-      onDrag={event=>event.preventDefault()}
+      onDrag={handleDrag}
+      onStop={(e, data) => {
+        onStop(data);
+      }}
     >
       <div className="flex items-center flex-col">
         <img
