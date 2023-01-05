@@ -61,6 +61,16 @@ module.exports = {
           }
         },
         {
+          '.lg-terminal-command-width': {
+            'width': 'calc(100% - 6rem)!important',
+          }
+        },
+        {
+          '.terminal-command-width': {
+            'width': 'calc(100% - 1rem)!important',
+          }
+        },
+        {
           '.page-header': {
             'color': '#FFF',
             'font-family': 'Courier',
@@ -140,6 +150,11 @@ module.exports = {
         {
           '.process-bg': {
             'background': 'linear-gradient(180deg, #00A3FF 0%, rgba(0, 163, 255, 0.53125) 46.88%, rgba(0, 163, 255, 0) 100%)'
+          }
+        },
+        {
+          '.terminal-cursor': {
+            'display': 'none'
           }
         }
       ])
