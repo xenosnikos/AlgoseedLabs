@@ -156,6 +156,11 @@ module.exports = {
           '.terminal-cursor': {
             'display': 'none'
           }
+        },
+        {
+          '.shadow-none': {
+            'box-shadow': 'none!important'
+          }
         }
       ])
     })

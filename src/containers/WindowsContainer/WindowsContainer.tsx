@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import FolderShortcutComponent from "../../components/FolderShortcutComponent";
 import FooterComponent from "../../components/FooterComponent";
+import WindowComponent from "../../components/WindowComponent";
 import useWindowSize from "../../hooks/windowSize";
 import HomeIcon from "../../assets/icons/shortcuts/home-icon.svg";
 import CaseStudiesIcon from "../../assets/icons/shortcuts/case-studies-icon.svg";
@@ -41,6 +42,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: 0,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Case Studies",
@@ -51,6 +54,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + 5,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "About",
@@ -61,6 +66,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + 5 * 2,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Contact Us",
@@ -71,6 +78,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + 5 * 3,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Support",
@@ -81,6 +90,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + 5 * 4,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Services",
@@ -91,6 +102,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + 5 * 5,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Portfolio",
@@ -101,6 +114,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + servicesShortcutHeight + 5 * 6,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Blog",
@@ -111,6 +126,8 @@ const initShortcuts = [
     yPercent: initYPercent,
     xGap: 0,
     yGap: 0,
+    isWindowOpen: false,
+    windowZIndex: 100
   },
   {
     title: "Trash",
@@ -121,6 +138,8 @@ const initShortcuts = [
     yPercent: 80,
     xGap: 0,
     yGap: 0,
+    isWindowOpen: false,
+    windowZIndex: 100
   }
 ];
 
@@ -131,6 +150,21 @@ const WindowsContainer = () => {
 
   const onStop = (index: number, data: any) => {
     updatePositions(index, data);
+  }
+
+  const onClickShortcut = (index: number) => {
+    const tempShortcuts = [...shortcuts];
+
+    let maxZIndex = 0;
+    tempShortcuts.forEach((shortcut, shortcutIndex) => {
+      if (maxZIndex < shortcut.windowZIndex)
+        maxZIndex = shortcut.windowZIndex;
+    });
+
+    tempShortcuts[index].isWindowOpen = true;
+    tempShortcuts[index].windowZIndex = maxZIndex + 10;
+
+    setShortcuts(tempShortcuts);
   }
 
   const updatePositions = (index: number, data: any) => {
@@ -179,12 +213,20 @@ const WindowsContainer = () => {
   }, [shortcuts])
 
   useEffect(() => {
-    const localShortcuts = localStorage.getItem("shortcuts");
-    if (localShortcuts) {
-      setShortcuts(JSON.parse(localShortcuts));
-    } else {
-      localStorage.setItem("shortcuts", JSON.stringify(initShortcuts));
-    }
+    (async () => {
+      let localShortcuts = localStorage.getItem("shortcuts");
+      if (localShortcuts) {
+        localShortcuts = JSON.parse(localShortcuts);
+        if (localShortcuts && Array.isArray(localShortcuts)) {
+          const newLocalShortcuts = await localShortcuts.map((shortcut, index) => {
+            return {...shortcut, isWindowOpen: false};
+          });
+          setShortcuts(newLocalShortcuts);
+        }
+      } else {
+        localStorage.setItem("shortcuts", JSON.stringify(initShortcuts));
+      }
+    })();
   }, [])
 
   return (
@@ -195,8 +237,12 @@ const WindowsContainer = () => {
       {shortcuts.map((shortcut, index) => {
         return (
           <div
-            className="absolute z-20"
             key={index}
+            className="absolute z-20"
+            onClick={(e) => {
+              if (e.detail === 2)
+                onClickShortcut(index);
+            }}
           >
             <FolderShortcutComponent
               title={shortcut.title}
@@ -207,6 +253,18 @@ const WindowsContainer = () => {
             />
           </div>
         )
+      })}
+      {shortcuts.map((shortcut, index) => {
+        if (shortcut.isWindowOpen)
+          return (
+            <WindowComponent
+              key={index}
+              title={shortcut.title}
+              width={width * 0.8}
+              height={height * 0.7}
+              zIndex={shortcut.windowZIndex}
+            />
+          )
       })}
       <FooterComponent />
     </div>
