@@ -4,7 +4,7 @@ import BatteryIcon from "../../assets/icons/battery.svg";
 
 const FooterComponent = () => {
   return (
-    <div className="absolute left-0 bottom-0 w-full h-39-px bg-black flex justify-between items-center px-3 md:px-12">
+    <div className="absolute left-0 bottom-0 w-full h-39-px bg-black flex justify-between items-center px-3 md:px-12 z-10">
       <button className="bg-black text-sm text-white px-2.5 py-0.5 border-4 border-white">
         CONTACT
       </button>

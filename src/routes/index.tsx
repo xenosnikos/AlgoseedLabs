@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import EnterContainer from "../containers/EnterContainer";
 import DesktopContainer from "../containers/DesktopContainer";
+import WindowsContainer from "../containers/WindowsContainer";
 import FullWindowContainer from "../containers/FullWindowContainer";
 import EnterIndexPage from "../pages/EnterPages/EnterIndexPage";
 import EnterLoadingFirstPage from "../pages/EnterPages/EnterLoadingFirstPage";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
         element: <DesktopServicesPage />
       }
     ]
+  },
+  {
+    path: "/windows",
+    element: <WindowsContainer />
   },
   {
     path: "/full",
