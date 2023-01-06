@@ -138,7 +138,7 @@ const WindowsContainer = () => {
 
     let updatedXPercent = (data.x - initXPadding) / width * 100;
     let updatedYPercent = (data.y - initYPadding) / height * 100;
-    console.log(data.x);
+
     if (data.x < initXPadding)
       updatedXPercent = 0;
     if (data.y < initXPadding)
@@ -155,6 +155,7 @@ const WindowsContainer = () => {
     tempShortcuts[index].yGap = 0;
 
     setShortcuts(tempShortcuts);
+    localStorage.setItem("shortcuts", JSON.stringify(tempShortcuts));
   }
 
   useEffect(() => {
@@ -176,6 +177,15 @@ const WindowsContainer = () => {
     if (!initialized)
       setInitialized(true);
   }, [shortcuts])
+
+  useEffect(() => {
+    const localShortcuts = localStorage.getItem("shortcuts");
+    if (localShortcuts) {
+      setShortcuts(JSON.parse(localShortcuts));
+    } else {
+      localStorage.setItem("shortcuts", JSON.stringify(initShortcuts));
+    }
+  }, [])
 
   return (
     <div className="w-screen h-screen bg-blue-1 relative">
