@@ -9,7 +9,7 @@ const ProgressBarComponent = () => {
   useEffect(() => {
     if (amount > 14 && intervalRef?.current) {
       clearInterval(intervalRef.current);
-      navigate("/desktop");
+      navigate("/windows");
     }
   }, [amount])
 
