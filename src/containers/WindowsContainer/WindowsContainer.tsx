@@ -220,6 +220,7 @@ const WindowsContainer = () => {
   const onClickWindow = (index: number) => {
     const tempShortcuts = [...shortcuts];
     tempShortcuts[index].isWindowOpen = false;
+    tempShortcuts[index].isFullWindow = false;
     setShortcuts(tempShortcuts);
   }
 
@@ -257,7 +258,6 @@ const WindowsContainer = () => {
     tempShortcuts[index].yGap = 0;
 
     setShortcuts(tempShortcuts);
-    localStorage.setItem("shortcuts", JSON.stringify(tempShortcuts));
   }
 
   useEffect(() => {
@@ -278,6 +278,8 @@ const WindowsContainer = () => {
   useEffect(() => {
     if (!initialized)
       setInitialized(true);
+    else
+      localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
   }, [shortcuts])
 
   useEffect(() => {
