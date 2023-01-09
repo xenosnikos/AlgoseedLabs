@@ -44,7 +44,6 @@ const FullPortfolioPage = () => {
         </div>
       </div>
       <FullFooterComponent />
-      <FooterComponent />
     </div>
   )
 }

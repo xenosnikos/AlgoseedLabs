@@ -262,7 +262,6 @@ const FullAboutPage = () => {
         image={ContactImg}
       />
       <FullFooterComponent />
-      <FooterComponent />
     </div>
   )
 }

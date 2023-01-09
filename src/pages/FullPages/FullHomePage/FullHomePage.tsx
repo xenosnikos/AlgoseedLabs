@@ -321,7 +321,6 @@ const FullHomePage = () => {
         image={ContactUsImg}
       />
       <FullFooterComponent />
-      <FooterComponent />
     </div>
   )
 }

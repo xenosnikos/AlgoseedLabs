@@ -3,6 +3,12 @@ import FolderShortcutComponent from "../../components/FolderShortcutComponent";
 import FooterComponent from "../../components/FooterComponent";
 import WindowComponent from "../../components/WindowComponent";
 import FullHomePage from "../../pages/FullPages/FullHomePage";
+import FullCaseStudiesPage from "../../pages/FullPages/FullCaseStudiesPage";
+import FullAboutPage from "../../pages/FullPages/FullAboutPage";
+import FullContactUsPage from "../../pages/FullPages/FullContactUsPage";
+import FullSupportPage from "../../pages/FullPages/FullSupportPage";
+import FullServicesPage from "../../pages/FullPages/FullServicesPage";
+import FullPortfolioPage from "../../pages/FullPages/FullPortfolioPage";
 import useWindowSize from "../../hooks/windowSize";
 import HomeIcon from "../../assets/icons/shortcuts/home-icon.svg";
 import CaseStudiesIcon from "../../assets/icons/shortcuts/case-studies-icon.svg";
@@ -13,13 +19,6 @@ import ServicesIcon from "../../assets/icons/shortcuts/services-icon.svg";
 import PortfolioIcon from "../../assets/icons/shortcuts/portfolio-icon.svg";
 import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
-import FullCaseStudiesPage from "../../pages/FullPages/FullCaseStudiesPage";
-import FullAboutPage from "../../pages/FullPages/FullAboutPage";
-import FullContactUsPage from "../../pages/FullPages/FullContactUsPage";
-import FullSupportPage from "../../pages/FullPages/FullSupportPage";
-import FullServicesPage from "../../pages/FullPages/FullServicesPage";
-import FullPortfolioPage from "../../pages/FullPages/FullPortfolioPage";
-
 const initYPercent = 5;
 const initXPadding = 20;
 const initYPadding = 10;
@@ -62,7 +61,8 @@ type shortcutType = {
   xGap: number,
   yGap: number,
   isWindowOpen: boolean,
-  windowZIndex: number
+  isFullWindow: boolean,
+  windowZIndex: number,
 }
 
 const initShortcuts: shortcutType[] = [
@@ -77,6 +77,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -90,6 +91,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + 5,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -103,6 +105,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + 5 * 2,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -116,6 +119,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + 5 * 3,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -129,6 +133,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + 5 * 4,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -142,6 +147,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + 5 * 5,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -155,6 +161,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + servicesShortcutHeight + 5 * 6,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -168,6 +175,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   },
   {
@@ -181,6 +189,7 @@ const initShortcuts: shortcutType[] = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
+    isFullWindow: false,
     windowZIndex: 30,
   }
 ];
@@ -205,6 +214,24 @@ const WindowsContainer = () => {
     });
     tempShortcuts[index].isWindowOpen = true;
 
+    setShortcuts(tempShortcuts);
+  }
+
+  const onClickWindow = (index: number) => {
+    const tempShortcuts = [...shortcuts];
+    tempShortcuts[index].isWindowOpen = false;
+    setShortcuts(tempShortcuts);
+  }
+
+  const onMinimizeWindow = (index: number) => {
+    const tempShortcuts = [...shortcuts];
+    tempShortcuts[index].isWindowOpen = false;
+    setShortcuts(tempShortcuts);
+  }
+
+  const onResizeWindow = (index: number) => {
+    const tempShortcuts = [...shortcuts];
+    tempShortcuts[index].isFullWindow = !tempShortcuts[index].isFullWindow;
     setShortcuts(tempShortcuts);
   }
 
@@ -301,10 +328,14 @@ const WindowsContainer = () => {
             <WindowComponent
               key={index}
               title={shortcut.title}
-              width={width * 0.8}
-              height={height * 0.8}
+              width={shortcut.isFullWindow ? width: width * 0.8}
+              height={shortcut.isFullWindow ? height - footerHeight : height * 0.8}
+              isFullWindow={shortcut.isFullWindow}
               zIndex={shortcut.windowZIndex}
               body={shortcutPages[`${shortcut.key}`]}
+              onCloseClick={() => onClickWindow(index)}
+              onMinimizeClick={() => onMinimizeWindow(index)}
+              onResizeClick={() => onResizeWindow(index)}
             />
           )
       })}
