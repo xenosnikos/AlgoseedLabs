@@ -302,7 +302,7 @@ const WindowsContainer = () => {
               key={index}
               title={shortcut.title}
               width={width * 0.8}
-              height={height * 0.7}
+              height={height * 0.8}
               zIndex={shortcut.windowZIndex}
               body={shortcutPages[`${shortcut.key}`]}
             />

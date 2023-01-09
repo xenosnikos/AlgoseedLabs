@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
+import cn from "classnames";
 import { Window, TitleBar } from "react-desktop/macOs";
 
 type props = {
@@ -17,19 +18,24 @@ const WindowComponent: React.FC<props> = ({
   zIndex
 }) => {
   return (
-    <Window
-      chrome
-      width={width}
-      height={height}
-      className="absolute left-0 top-0 shadow-none overflow-y-scroll"
+    <div
+      className="absolute left-20 top-5"
       style={{zIndex: zIndex}}
     >
       <TitleBar
         controls
         title={title}
       />
-      {body}
-    </Window>
+      <Window
+        chrome
+        width={width}
+        height={height}
+        className="relative shadow-none overflow-x-hidden overflow-y-scroll"
+      >
+        {body}
+      </Window>
+    </div>
+
   )
 }
 
