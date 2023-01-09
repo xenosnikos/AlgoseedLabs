@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import FolderShortcutComponent from "../../components/FolderShortcutComponent";
 import FooterComponent from "../../components/FooterComponent";
 import WindowComponent from "../../components/WindowComponent";
+import FullHomePage from "../../pages/FullPages/FullHomePage";
 import useWindowSize from "../../hooks/windowSize";
 import HomeIcon from "../../assets/icons/shortcuts/home-icon.svg";
 import CaseStudiesIcon from "../../assets/icons/shortcuts/case-studies-icon.svg";
@@ -12,6 +13,12 @@ import ServicesIcon from "../../assets/icons/shortcuts/services-icon.svg";
 import PortfolioIcon from "../../assets/icons/shortcuts/portfolio-icon.svg";
 import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
+import FullCaseStudiesPage from "../../pages/FullPages/FullCaseStudiesPage";
+import FullAboutPage from "../../pages/FullPages/FullAboutPage";
+import FullContactUsPage from "../../pages/FullPages/FullContactUsPage";
+import FullSupportPage from "../../pages/FullPages/FullSupportPage";
+import FullServicesPage from "../../pages/FullPages/FullServicesPage";
+import FullPortfolioPage from "../../pages/FullPages/FullPortfolioPage";
 
 const initYPercent = 5;
 const initXPadding = 20;
@@ -32,8 +39,35 @@ const portfolioShortcutWidth = 82;
 const portfolioShortcutHeight = 94;
 const footerHeight = 40;
 
-const initShortcuts = [
+const shortcutPages = {
+  home: <FullHomePage />,
+  caseStudies: <FullCaseStudiesPage />,
+  about: <FullAboutPage />,
+  contactUs: <FullContactUsPage />,
+  support: <FullSupportPage />,
+  services: <FullServicesPage />,
+  portfolio: <FullPortfolioPage />,
+  blog: <div>This page is empty.</div>,
+  trash: <div>This page is empty.</div>
+}
+
+type shortcutType = {
+  key: keyof typeof shortcutPages,
+  title: string,
+  icon: string,
+  width: number,
+  height: number,
+  xPercent: number,
+  yPercent: number,
+  xGap: number,
+  yGap: number,
+  isWindowOpen: boolean,
+  windowZIndex: number
+}
+
+const initShortcuts: shortcutType[] = [
   {
+    key: "home",
     title: "Home",
     icon: HomeIcon,
     width: homeShortcutWidth,
@@ -43,9 +77,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "caseStudies",
     title: "Case Studies",
     icon: CaseStudiesIcon,
     width: caseStudiesShortcutWidth,
@@ -55,9 +90,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + 5,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "about",
     title: "About",
     icon: AboutIcon,
     width: aboutShortcutWidth,
@@ -67,9 +103,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + 5 * 2,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "contactUs",
     title: "Contact Us",
     icon: ContactUsIcon,
     width: contactUsShortcutWidth,
@@ -79,9 +116,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + 5 * 3,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "support",
     title: "Support",
     icon: SupportIcon,
     width: supportShortcutWidth,
@@ -91,9 +129,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + 5 * 4,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "services",
     title: "Services",
     icon: ServicesIcon,
     width: servicesShortcutWidth,
@@ -103,9 +142,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + 5 * 5,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "portfolio",
     title: "Portfolio",
     icon: PortfolioIcon,
     width: portfolioShortcutWidth,
@@ -115,9 +155,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: homeShortcutHeight + caseStudiesShortcutHeight + aboutShortcutHeight + contactUsShortcutHeight + supportShortcutHeight + servicesShortcutHeight + 5 * 6,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "blog",
     title: "Blog",
     icon: BlogIcon,
     width: portfolioShortcutWidth,
@@ -127,9 +168,10 @@ const initShortcuts = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   },
   {
+    key: "trash",
     title: "Trash",
     icon: TrashIcon,
     width: portfolioShortcutWidth,
@@ -139,7 +181,7 @@ const initShortcuts = [
     xGap: 0,
     yGap: 0,
     isWindowOpen: false,
-    windowZIndex: 100
+    windowZIndex: 30,
   }
 ];
 
@@ -155,14 +197,13 @@ const WindowsContainer = () => {
   const onClickShortcut = (index: number) => {
     const tempShortcuts = [...shortcuts];
 
-    let maxZIndex = 0;
     tempShortcuts.forEach((shortcut, shortcutIndex) => {
-      if (maxZIndex < shortcut.windowZIndex)
-        maxZIndex = shortcut.windowZIndex;
+      if (shortcutIndex === index)
+        tempShortcuts[shortcutIndex].windowZIndex = 40;
+      else
+        tempShortcuts[shortcutIndex].windowZIndex = 30;
     });
-
     tempShortcuts[index].isWindowOpen = true;
-    tempShortcuts[index].windowZIndex = maxZIndex + 10;
 
     setShortcuts(tempShortcuts);
   }
@@ -263,6 +304,7 @@ const WindowsContainer = () => {
               width={width * 0.8}
               height={height * 0.7}
               zIndex={shortcut.windowZIndex}
+              body={shortcutPages[`${shortcut.key}`]}
             />
           )
       })}
