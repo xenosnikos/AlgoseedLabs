@@ -19,6 +19,8 @@ import ServicesIcon from "../../assets/icons/shortcuts/services-icon.svg";
 import PortfolioIcon from "../../assets/icons/shortcuts/portfolio-icon.svg";
 import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
+import {isNumber} from "util";
+
 const initYPercent = 5;
 const initXPadding = 20;
 const initYPadding = 10;
@@ -195,26 +197,22 @@ const initShortcuts: shortcutType[] = [
 ];
 
 const WindowsContainer = () => {
-  const [shortcuts, setShortcuts] = useState(initShortcuts);
-  const [initialized, setInitialized] = useState(false);
+  const [shortcuts, setShortcuts] = useState<shortcutType[]>(initShortcuts);
+  const [initialized, setInitialized] = useState<boolean>(false);
+  const [touchAmount, setTouchAmount] = useState<number>(0);
+  const [touchedShortcutIndex, setTouchedShortcutIndex] = useState<number|null>(null);
   const [width, height] = useWindowSize();
 
   const onStop = (index: number, data: any) => {
     updatePositions(index, data);
   }
 
-  const onClickShortcut = (index: number) => {
-    const tempShortcuts = [...shortcuts];
+  const onDoubleClickShortcut = (index: number) => {
+    openWindow(index);
+  }
 
-    tempShortcuts.forEach((shortcut, shortcutIndex) => {
-      if (shortcutIndex === index)
-        tempShortcuts[shortcutIndex].windowZIndex = 40;
-      else
-        tempShortcuts[shortcutIndex].windowZIndex = 30;
-    });
-    tempShortcuts[index].isWindowOpen = true;
-
-    setShortcuts(tempShortcuts);
+  const onDoubleTabShortcut = (index: number) => {
+    openWindow(index);
   }
 
   const onClickWindow = (index: number) => {
@@ -233,6 +231,20 @@ const WindowsContainer = () => {
   const onResizeWindow = (index: number) => {
     const tempShortcuts = [...shortcuts];
     tempShortcuts[index].isFullWindow = !tempShortcuts[index].isFullWindow;
+    setShortcuts(tempShortcuts);
+  }
+
+  const openWindow = (index: number) => {
+    const tempShortcuts = [...shortcuts];
+
+    tempShortcuts.forEach((shortcut, shortcutIndex) => {
+      if (shortcutIndex === index)
+        tempShortcuts[shortcutIndex].windowZIndex = 40;
+      else
+        tempShortcuts[shortcutIndex].windowZIndex = 30;
+    });
+    tempShortcuts[index].isWindowOpen = true;
+
     setShortcuts(tempShortcuts);
   }
 
@@ -259,6 +271,26 @@ const WindowsContainer = () => {
 
     setShortcuts(tempShortcuts);
   }
+
+  useEffect(() => {
+    if (typeof touchedShortcutIndex !== "number")
+      return;
+
+    let clickTimer = null;
+
+    if (touchAmount === 1) {
+      clickTimer = setTimeout(() => {
+        setTouchAmount(0);
+      }, 400);
+    }
+
+    if (touchAmount === 2) {
+      setTouchAmount(0);
+      if (clickTimer)
+        clearTimeout(clickTimer)
+      onDoubleTabShortcut(touchedShortcutIndex);
+    }
+  }, [touchAmount, touchedShortcutIndex])
 
   useEffect(() => {
     if (!initialized)
@@ -309,9 +341,12 @@ const WindowsContainer = () => {
           <div
             key={index}
             className="absolute z-20"
-            onClick={(e) => {
-              if (e.detail === 2)
-                onClickShortcut(index);
+            onDoubleClick={(e) => {
+              onDoubleClickShortcut(index);
+            }}
+            onTouchEnd={(e) => {
+              setTouchedShortcutIndex(index);
+              setTouchAmount(touchAmount + 1);
             }}
           >
             <FolderShortcutComponent
@@ -331,7 +366,7 @@ const WindowsContainer = () => {
               key={index}
               title={shortcut.title}
               width={shortcut.isFullWindow ? width: width * 0.8}
-              height={shortcut.isFullWindow ? height - footerHeight : height * 0.8}
+              height={shortcut.isFullWindow ? height - footerHeight : height * 0.8 - footerHeight}
               isFullWindow={shortcut.isFullWindow}
               zIndex={shortcut.windowZIndex}
               body={shortcutPages[`${shortcut.key}`]}
