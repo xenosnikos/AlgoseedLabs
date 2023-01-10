@@ -65,45 +65,45 @@ const router = createBrowserRouter([
     path: "/windows",
     element: <WindowsContainer />
   },
-  {
-    path: "/full",
-    element: <FullWindowContainer />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to="/full/home" replace />
-      },
-      {
-        path: "/full/home",
-        element: <FullHomePage />
-      },
-      {
-        path: "/full/services",
-        element: <FullServicesPage />
-      },
-      {
-        path: "/full/about",
-        element: <FullAboutPage />
-      },
-      {
-        path: "/full/contact",
-        element: <FullContactUsPage />
-      },
-      {
-        path: "/full/portfolio",
-        element: <FullPortfolioPage />
-      },
-      {
-        path: "/full/caseStudies",
-        element: <FullCaseStudiesPage />
-      },
-      {
-        path: "/full/support",
-        element: <FullSupportPage />
-      }
-    ]
-  }
+  // {
+  //   path: "/full",
+  //   element: <FullWindowContainer />,
+  //   errorElement: <ErrorPage />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Navigate to="/full/home" replace />
+  //     },
+  //     {
+  //       path: "/full/home",
+  //       element: <FullHomePage />
+  //     },
+  //     {
+  //       path: "/full/services",
+  //       element: <FullServicesPage />
+  //     },
+  //     {
+  //       path: "/full/about",
+  //       element: <FullAboutPage />
+  //     },
+  //     {
+  //       path: "/full/contact",
+  //       element: <FullContactUsPage />
+  //     },
+  //     {
+  //       path: "/full/portfolio",
+  //       element: <FullPortfolioPage />
+  //     },
+  //     {
+  //       path: "/full/caseStudies",
+  //       element: <FullCaseStudiesPage />
+  //     },
+  //     {
+  //       path: "/full/support",
+  //       element: <FullSupportPage />
+  //     }
+  //   ]
+  // }
 ]);
 
 export default router

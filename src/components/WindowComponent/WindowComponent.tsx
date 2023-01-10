@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import { Window, TitleBar } from "react-desktop/macOs";
-import useWindowSize from "../../hooks/windowSize";
+import useScreenSize from "../../hooks/screenSize";
 
 type props = {
   title: string,
@@ -26,7 +26,7 @@ const WindowComponent: React.FC<props> = ({
   onMinimizeClick,
   onResizeClick
 }) => {
-  const [screenWidth, screenHeight] = useWindowSize();
+  const [screenWidth, screenHeight] = useScreenSize();
 
   return (
     <div

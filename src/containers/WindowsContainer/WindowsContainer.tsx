@@ -9,7 +9,7 @@ import FullContactUsPage from "../../pages/FullPages/FullContactUsPage";
 import FullSupportPage from "../../pages/FullPages/FullSupportPage";
 import FullServicesPage from "../../pages/FullPages/FullServicesPage";
 import FullPortfolioPage from "../../pages/FullPages/FullPortfolioPage";
-import useWindowSize from "../../hooks/windowSize";
+import useScreenSize from "../../hooks/screenSize";
 import HomeIcon from "../../assets/icons/shortcuts/home-icon.svg";
 import CaseStudiesIcon from "../../assets/icons/shortcuts/case-studies-icon.svg";
 import AboutIcon from "../../assets/icons/shortcuts/about-icon.svg";
@@ -19,7 +19,6 @@ import ServicesIcon from "../../assets/icons/shortcuts/services-icon.svg";
 import PortfolioIcon from "../../assets/icons/shortcuts/portfolio-icon.svg";
 import BlogIcon from "../../assets/icons/shortcuts/blog-icon.svg";
 import TrashIcon from "../../assets/icons/shortcuts/trash-icon.svg";
-import {isNumber} from "util";
 
 const initYPercent = 5;
 const initXPadding = 20;
@@ -40,20 +39,44 @@ const portfolioShortcutWidth = 82;
 const portfolioShortcutHeight = 94;
 const footerHeight = 40;
 
-const shortcutPages = {
-  home: <FullHomePage />,
-  caseStudies: <FullCaseStudiesPage />,
-  about: <FullAboutPage />,
-  contactUs: <FullContactUsPage />,
-  support: <FullSupportPage />,
-  services: <FullServicesPage />,
-  portfolio: <FullPortfolioPage />,
-  blog: <div>This page is empty.</div>,
-  trash: <div>This page is empty.</div>
+type shortcutPageType = {
+  home: React.ReactNode,
+  caseStudies: React.ReactNode,
+  about: React.ReactNode,
+  contactUs: React.ReactNode,
+  support: React.ReactNode,
+  services: React.ReactNode,
+  portfolio: React.ReactNode,
+  blog: React.ReactNode,
+  trash: React.ReactNode,
+}
+
+const pages = [
+  <FullHomePage />,
+  <FullCaseStudiesPage />,
+  <FullAboutPage />,
+  <FullContactUsPage />,
+  <FullSupportPage />,
+  <FullServicesPage />,
+  <FullPortfolioPage />,
+  <div>This page is empty.</div>,
+  <div>This page is empty.</div>
+];
+
+const initShortcutPages: shortcutPageType = {
+  home: React.cloneElement(pages[0], {windowSize: {width: 100, height: 100}}),
+  caseStudies: React.cloneElement(pages[1], {windowSize: {width: 100, height: 100}}),
+  about: React.cloneElement(pages[2], {windowSize: {width: 100, height: 100}}),
+  contactUs: React.cloneElement(pages[3], {windowSize: {width: 100, height: 100}}),
+  support: React.cloneElement(pages[4], {windowSize: {width: 100, height: 100}}),
+  services: React.cloneElement(pages[5], {windowSize: {width: 100, height: 100}}),
+  portfolio: React.cloneElement(pages[6], {windowSize: {width: 100, height: 100}}),
+  blog: React.cloneElement(pages[7], {windowSize: {width: 100, height: 100}}),
+  trash: React.cloneElement(pages[8], {windowSize: {width: 100, height: 100}}),
 }
 
 type shortcutType = {
-  key: keyof typeof shortcutPages,
+  key: keyof typeof initShortcutPages,
   title: string,
   icon: string,
   width: number,
@@ -198,10 +221,11 @@ const initShortcuts: shortcutType[] = [
 
 const WindowsContainer = () => {
   const [shortcuts, setShortcuts] = useState<shortcutType[]>(initShortcuts);
+  const [shortcutPages, setShortcutPages] = useState(initShortcutPages);
   const [initialized, setInitialized] = useState<boolean>(false);
   const [touchAmount, setTouchAmount] = useState<number>(0);
   const [touchedShortcutIndex, setTouchedShortcutIndex] = useState<number|null>(null);
-  const [width, height] = useWindowSize();
+  const [width, height] = useScreenSize();
 
   const onStop = (index: number, data: any) => {
     updatePositions(index, data);
@@ -272,6 +296,29 @@ const WindowsContainer = () => {
     setShortcuts(tempShortcuts);
   }
 
+  const updateShortcutPages = () => {
+    const tempShortcutPages = {...shortcutPages};
+
+    Object.keys(tempShortcutPages).forEach((shortcutKey) => {
+      const index = shortcuts.findIndex(shortcut => shortcut.key === shortcutKey);
+      tempShortcutPages[shortcutKey as keyof typeof shortcutPages] = React.cloneElement(pages[index], {
+        windowSize: {
+          width: calculateWindowSize(index).width,
+          height: calculateWindowSize(index).height
+        }
+      });
+    });
+
+    setShortcutPages(tempShortcutPages);
+  }
+
+  const calculateWindowSize = (index: number) => {
+    return {
+      width: shortcuts[index].isFullWindow ? width : width * 0.8,
+      height: shortcuts[index].isFullWindow ? height - footerHeight : height * 0.8 - footerHeight
+    }
+  }
+
   useEffect(() => {
     if (typeof touchedShortcutIndex !== "number")
       return;
@@ -293,6 +340,8 @@ const WindowsContainer = () => {
   }, [touchAmount, touchedShortcutIndex])
 
   useEffect(() => {
+    updateShortcutPages();
+
     if (!initialized)
       return;
 
@@ -365,8 +414,8 @@ const WindowsContainer = () => {
             <WindowComponent
               key={index}
               title={shortcut.title}
-              width={shortcut.isFullWindow ? width: width * 0.8}
-              height={shortcut.isFullWindow ? height - footerHeight : height * 0.8 - footerHeight}
+              width={calculateWindowSize(index).width}
+              height={calculateWindowSize(index).height}
               isFullWindow={shortcut.isFullWindow}
               zIndex={shortcut.windowZIndex}
               body={shortcutPages[`${shortcut.key}`]}

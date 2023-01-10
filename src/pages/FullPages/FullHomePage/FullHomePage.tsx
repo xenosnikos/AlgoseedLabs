@@ -13,11 +13,10 @@ import {
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ContactUsComponent from "../../../components/ContactUsComponent";
-import FooterComponent from "../../../components/FooterComponent";
 import FullFooterComponent from "../../../components/FullFooterComponent";
 import HomeLogoImg from "../../../assets/images/home/home-splash.svg";
 import ContactUsImg from "../../../assets/images/home/contact-logo.svg";
-import useWindowSize from "../../../hooks/windowSize";
+import useScreenSize from "../../../hooks/screenSize";
 
 const initRecognitionsSliderSetting = {
   dots: false,
@@ -40,10 +39,10 @@ const initTestimonialsSliderSetting = {
   dotsClass: "testimonial-slider-dot"
 }
 
-const FullHomePage = () => {
+const FullHomePage = (props: any) => {
   const [recognitionsSliderSetting, setRecognitionsSliderSetting] = useState(initRecognitionsSliderSetting);
   const [testimonialsSliderSetting, setTestimonialsSliderSetting] = useState(initTestimonialsSliderSetting);
-  const [width, height] = useWindowSize();
+  const [width, height] = useScreenSize();
 
   useEffect(() => {
     if (width < 800) {
@@ -62,7 +61,7 @@ const FullHomePage = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col lg:flex-row gap-x-24 items-start px-3 md:px-111-px mb-16">
+      <div className={cn("flex flex-col lg:flex-row gap-x-24 items-start mb-16", width > 938 ? "px-3" : "px-111-px")}>
         <img
           src={HomeLogoImg}
           alt="home logo"
