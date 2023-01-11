@@ -3,7 +3,7 @@ import React from "react";
 const FullServicesPage = () => {
   return (
     <div>
-      Full Services
+      This Page is empty.
     </div>
   )
 }
