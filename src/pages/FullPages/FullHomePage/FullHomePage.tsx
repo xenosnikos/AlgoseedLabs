@@ -45,6 +45,10 @@ const FullHomePage = (props: any) => {
   const [width, height] = useScreenSize();
 
   useEffect(() => {
+    console.log(props.windowSize.width);
+  }, [props])
+
+  useEffect(() => {
     if (width < 800) {
       setTestimonialsSliderSetting({...testimonialsSliderSetting, slidesToShow: 1});
     } else {
@@ -61,7 +65,12 @@ const FullHomePage = (props: any) => {
 
   return (
     <div className="w-full">
-      <div className={cn("flex flex-col lg:flex-row gap-x-24 items-start mb-16", width > 938 ? "px-3" : "px-111-px")}>
+      <div className={cn(
+        "flex gap-x-24 items-start mb-16",
+            props.windowSize.width > 1000 ? "px-111-px" : "px-3",
+            props.windowSize.width > 865 ? "flex-row" : "flex-col",
+        )}
+      >
         <img
           src={HomeLogoImg}
           alt="home logo"
@@ -106,7 +115,10 @@ const FullHomePage = (props: any) => {
             return (
               <div
                 key={index}
-                className={cn("max-w-347-px h-349-px flex flex-col justify-between bg-white p-8 border border-black m-auto", index % 3 === 0 ? "xl:mr-auto" : index % 3 === 1 ? "m-auto" : "xl:ml-auto")}
+                className={cn(
+                  "max-w-347-px min-h-349-px h-full flex flex-col justify-between bg-white p-8 border border-black m-auto",
+                  index % 3 === 0 ? "xl:mr-auto" : index % 3 === 1 ? "m-auto" : "xl:ml-auto"
+                )}
               >
                 <div className="flex flex-col items-center">
                   <img
@@ -135,7 +147,10 @@ const FullHomePage = (props: any) => {
           })}
         </div>
       </div>
-      <div className="home-languages-bg px-3 md:px-111-px pt-20 pb-353-px">
+      <div className={cn(
+        "home-languages-bg pt-20 pb-353-px",
+             props.windowSize.width > 804 ? "px-111-px" : "px-3",
+        )}>
         <div className="font-['Courier'] text-base text-white mb-2.5">
           // Tech stacks we deliver //
         </div>
@@ -216,8 +231,14 @@ const FullHomePage = (props: any) => {
           </Slider>
         </div>
       </div>
-      <div className="bg-blue-2 px-3 md:px-111-px py-20">
-        <div className="flex flex-wrap justify-center md:justify-between gap-x-2 mb-12">
+      <div className={cn(
+        "bg-blue-2 py-20",
+             props.windowSize.width > 930 ? "px-111-px" : "px-3",
+        )}>
+        <div className={cn(
+          "flex flex-wrap gap-x-2 mb-12",
+              props.windowSize.width > 782 ? "justify-between" : "justify-center",
+        )}>
           <div className="w-full max-w-347-px h-349-px flex flex-col justify-center items-center bg-white border border-black">
             <img
               className="mb-6"
@@ -318,8 +339,11 @@ const FullHomePage = (props: any) => {
       </div>
       <ContactUsComponent
         image={ContactUsImg}
+        windowSize={props.windowSize}
       />
-      <FullFooterComponent />
+      <FullFooterComponent
+        windowSize={props.windowSize}
+      />
     </div>
   )
 }

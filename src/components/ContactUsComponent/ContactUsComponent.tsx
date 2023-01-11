@@ -1,15 +1,21 @@
 import React from "react";
+import cn from "classnames";
 import { Button } from 'react-desktop/macOs';
 import InputComponent from "../InputComponent";
 import TextAreaComponent from "../TextAreaComponent";
+import {windowSizeType} from "../../helpers/types";
 
 type props = {
-  image: string
+  image: string,
+  windowSize: windowSizeType
 }
 
-const ContactUsComponent: React.FC<props> = ({ image }) => {
+const ContactUsComponent: React.FC<props> = ({ image, windowSize }) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-x-40 gap-y-10 px-3 md:px-111-px py-24">
+    <div className={cn(
+      "flex flex-col lg:flex-row gap-x-40 gap-y-10 py-24",
+           windowSize.width > 970 ? "px-111-px" : "px-3"
+    )}>
       <div className="w-full lg:w-1/2 flex flex-col items-start">
         <div className="font-['Courier'] text-base text-center mb-2">
           // Get in touch //
@@ -51,6 +57,7 @@ const ContactUsComponent: React.FC<props> = ({ image }) => {
       </div>
       <div className="w-full lg:w-1/2">
         <img
+          className="m-auto lg:m-0"
           src={image}
           alt="contact us"
         />

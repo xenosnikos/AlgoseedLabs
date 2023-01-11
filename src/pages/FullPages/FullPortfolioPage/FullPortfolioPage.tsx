@@ -43,7 +43,9 @@ const FullPortfolioPage = () => {
           })}
         </div>
       </div>
-      <FullFooterComponent />
+      <FullFooterComponent
+        windowSize={{width: 20, height: 20}}
+      />
     </div>
   )
 }

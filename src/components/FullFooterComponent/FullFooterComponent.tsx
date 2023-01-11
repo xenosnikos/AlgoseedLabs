@@ -4,6 +4,7 @@ import cn from "classnames";
 import { TextInput, Button } from "react-desktop/macOs";
 import LogoImg from "../../assets/images/logo.svg";
 import {socials} from "../../helpers/data";
+import {windowSizeType} from "../../helpers/types";
 
 const menus = [
   {title: "HOME", link: "/full/home"},
@@ -14,11 +15,18 @@ const menus = [
   {title: "TEAM", link: "/full/contact"}
 ];
 
-const FullFooterComponent = () => {
+type props = {
+  windowSize: windowSizeType
+}
+
+const FullFooterComponent: React.FC<props> = ({ windowSize }) => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between gap-y-5 bg-blue-2 px-3 md:px-111-px py-14 mb-7">
+    <div className={cn(
+      "flex flex-col lg:flex-row justify-between gap-y-5 bg-blue-2 py-14 mb-7",
+          windowSize.width > 1000 ? "px-111-px" : "px-3"
+    )}>
       <div className="flex flex-col">
         <img
           className="mb-7	"

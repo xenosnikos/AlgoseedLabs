@@ -259,9 +259,12 @@ const FullAboutPage = () => {
         </div>
       </div>
       <ContactUsComponent
+        windowSize={{width: 20, height: 20}}
         image={ContactImg}
       />
-      <FullFooterComponent />
+      <FullFooterComponent
+        windowSize={{width: 20, height: 20}}
+      />
     </div>
   )
 }
