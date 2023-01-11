@@ -1,6 +1,6 @@
 import React from "react";
+import cn from "classnames";
 import FullFooterComponent from "../../../components/FullFooterComponent";
-import FooterComponent from "../../../components/FooterComponent";
 import Work2Img from "../../../assets/images/home/work-2.svg";
 import Work3Img from "../../../assets/images/home/work-3.svg";
 import Work4Img from "../../../assets/images/home/work-4.svg";
@@ -18,10 +18,10 @@ const works = [
   {image: Work3Img},
 ]
 
-const FullPortfolioPage = () => {
+const FullPortfolioPage = (props: any) => {
   return (
     <div>
-      <div className="px-3 md:px-111-px">
+      <div className={cn(props.windowSize.width > 1200 ? "px-111-px" : "px-3")}>
         <div className="page-header text-blue-200 text-center mb-12">
           Portfolio
         </div>
@@ -35,6 +35,7 @@ const FullPortfolioPage = () => {
           {works.map((work, index) => {
             return (
               <img
+                className="m-auto"
                 key={index}
                 src={work.image}
                 alt="work"
