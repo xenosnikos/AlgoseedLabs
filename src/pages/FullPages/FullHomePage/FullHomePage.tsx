@@ -45,10 +45,6 @@ const FullHomePage = (props: any) => {
   const [width, height] = useScreenSize();
 
   useEffect(() => {
-    console.log(props.windowSize.width);
-  }, [props])
-
-  useEffect(() => {
     if (width < 800) {
       setTestimonialsSliderSetting({...testimonialsSliderSetting, slidesToShow: 1});
     } else {

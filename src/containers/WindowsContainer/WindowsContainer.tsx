@@ -314,7 +314,7 @@ const WindowsContainer = () => {
 
   const calculateWindowSize = (index: number) => {
     return {
-      width: shortcuts[index].isFullWindow ? width : width * 0.8,
+      width: shortcuts[index].isFullWindow ? width : width > 450 ? width * 0.8 : width * 0.96,
       height: shortcuts[index].isFullWindow ? height - footerHeight : height * 0.8 - footerHeight
     }
   }

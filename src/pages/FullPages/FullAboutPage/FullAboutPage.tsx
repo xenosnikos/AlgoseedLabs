@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import cn from "classnames";
 import { Button } from "react-desktop/macOs";
 import ContactUsComponent from "../../../components/ContactUsComponent";
 import FullFooterComponent from "../../../components/FullFooterComponent";
-import FooterComponent from "../../../components/FooterComponent";
 import {values} from "../../../helpers/data";
 import AboutIImg from "../../../assets/images/about/about-1.svg";
 import MissionImg from "../../../assets/images/about/mission.svg";
@@ -113,10 +112,18 @@ const profiles = [
   },
 ];
 
-const FullAboutPage = () => {
+const FullAboutPage = (props: any) => {
+
+  useEffect(() => {
+    console.log(props.windowSize.width);
+  }, [props])
+
   return (
     <div>
-      <div className="flex flex-col lg:flex-row gap-x-9 px-3 md:px-111-px">
+      <div className={cn(
+        "flex flex-col lg:flex-row items-start gap-x-9",
+             props.windowSize.width > 1400 ? "px-111-px" : "px-3"
+      )}>
         <div className="w-full lg:w-1/2">
           <div className="page-header mb-6">
             About <span className="text-blue-200">Algoseed Labs</span>
@@ -140,7 +147,10 @@ const FullAboutPage = () => {
           alt="about 1 img"
         />
       </div>
-      <div className="flex flex-col gap-y-16 px-3 md:px-111-px mt-14">
+      <div className={cn(
+        "flex flex-col gap-y-16 mt-14",
+            props.windowSize.width > 1400 ? "px-111-px" : "px-3"
+        )}>
         {data.map((item, index) => {
           return (
             <div
@@ -167,19 +177,25 @@ const FullAboutPage = () => {
           )
         })}
       </div>
-      <div className="values-bg px-3 md:px-111-px py-60-px mt-28">
+      <div className={cn(
+        "values-bg py-60-px mt-28",
+             props.windowSize.width > 1500 ? "px-111-px" : "px-3"
+      )}>
         <div className="font-['Courier'] text-base text-center text-white mb-2.5">
           // Why should you work with us //
         </div>
         <div className="font-['Open_Sans'] text-2xl text-center font-bold text-white mb-24">
           Our values
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-24	gap-y-16">
+        <div className={cn(
+          "grid gap-x-24	gap-y-16",
+               props.windowSize.width > 1320 ? "grid-cols-3" : props.windowSize.width > 867 ? "grid-cols-2" : "grid-cols-1"
+          )}>
           {values.map((value, index) => {
             return (
               <div
                 key={index}
-                className="flex flex-col justify-center items-center gap-y-8 font-['Open_Sans'] text-xl	text-white  text-center max-w-347-px min-w-347-px h-349-px bg-blue-1 px-6 m-auto border border-white"
+                className="flex flex-col justify-center items-center gap-y-8 font-['Open_Sans'] text-xl	text-white  text-center max-w-347-px h-349-px bg-blue-1 px-6 m-auto border border-white"
               >
                 <img
                   src={value.icon}
@@ -193,7 +209,11 @@ const FullAboutPage = () => {
           })}
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between lg:items-center pl-3 md:pl-111-px py-20">
+      <div className={cn(
+        "flex justify-between py-20",
+             props.windowSize.width > 1162 ? "pl-111-px" : "pl-3",
+             props.windowSize.width > 1065 ? "flex-row items-center" : "flex-col"
+        )}>
         <div>
           <div className="font-['Courier'] text-base mb-2.5">
             // Clutch reviews //
