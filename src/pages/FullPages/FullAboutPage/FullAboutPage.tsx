@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import cn from "classnames";
 import { Button } from "react-desktop/macOs";
 import ContactUsComponent from "../../../components/ContactUsComponent";
@@ -113,11 +113,6 @@ const profiles = [
 ];
 
 const FullAboutPage = (props: any) => {
-
-  useEffect(() => {
-    console.log(props.windowSize.width);
-  }, [props])
-
   return (
     <div>
       <div className={cn(

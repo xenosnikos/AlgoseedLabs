@@ -1,4 +1,5 @@
 import React from "react";
+import cn from "classnames";
 import { Button } from "react-desktop/macOs";
 import InputComponent from "../../../components/InputComponent";
 import TextAreaComponent from "../../../components/TextAreaComponent";
@@ -25,10 +26,13 @@ const contactMethods = [
     description: "Our customer support line is open from Monday to Friday, during the hours of 10:00 AM to 6:00 PM (Eastern Time). "
   }
 ]
-const FullContactUsPage = () => {
+const FullContactUsPage = (props: any) => {
   return (
     <div>
-      <div className="flex flex-col lg:flex-row gap-x-40 gap-y-10 px-3 md:px-111-px mb-16 lg:mb-40">
+      <div className={cn(
+        "flex flex-col lg:flex-row gap-x-40 gap-y-10 mb-16 lg:mb-40",
+             props.windowSize.width > 1000 ? "px-111-px" : "px-3"
+      )}>
         <div className="w-full">
           <div className="page-header mb-12">
             <span className="text-blue-200">Contact</span> Us
@@ -71,6 +75,7 @@ const FullContactUsPage = () => {
               <ContactCardComponent
                 key={index}
                 {...item}
+                windowSize={props.windowSize}
               />
             )
           })}
