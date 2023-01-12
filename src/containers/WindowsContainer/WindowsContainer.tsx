@@ -359,8 +359,10 @@ const WindowsContainer = () => {
   useEffect(() => {
     if (!initialized)
       setInitialized(true);
-    else
+    else {
+      updateShortcutPages();
       localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+    }
   }, [shortcuts])
 
   useEffect(() => {
