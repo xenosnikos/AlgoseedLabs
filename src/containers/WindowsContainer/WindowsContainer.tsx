@@ -241,6 +241,8 @@ const WindowsContainer = () => {
 
   const onClickWindow = (index: number) => {
     const tempShortcuts = [...shortcuts];
+    if (index === null || !tempShortcuts[index])
+    return;
     tempShortcuts[index].isWindowOpen = false;
     tempShortcuts[index].isFullWindow = false;
     setShortcuts(tempShortcuts);
@@ -254,6 +256,8 @@ const WindowsContainer = () => {
 
   const onResizeWindow = (index: number) => {
     const tempShortcuts = [...shortcuts];
+    if (index === null || !tempShortcuts[index])
+    return;
     tempShortcuts[index].isFullWindow = !tempShortcuts[index].isFullWindow;
     setShortcuts(tempShortcuts);
   }
@@ -314,8 +318,8 @@ const WindowsContainer = () => {
 
   const calculateWindowSize = (index: number) => {
     return {
-      width: shortcuts[index].isFullWindow ? width : width > 450 ? width * 0.8 : width * 0.96,
-      height: shortcuts[index].isFullWindow ? height - footerHeight : height * 0.8 - footerHeight
+      width: shortcuts[index] && shortcuts[index].isFullWindow ? width : width > 450 ? width * 0.8 : width * 0.96,
+      height: shortcuts[index] && shortcuts[index].isFullWindow ? height - footerHeight : height * 0.8 - footerHeight
     }
   }
 
@@ -411,7 +415,7 @@ const WindowsContainer = () => {
         )
       })}
       {shortcuts.map((shortcut, index) => {
-        if (shortcut.isWindowOpen)
+        if (shortcut && shortcut.isWindowOpen)
           return (
             <WindowComponent
               key={index}
